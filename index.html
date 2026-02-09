@@ -3,43 +3,622 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Waschmaschinen-Lager Reparatur-Guide</title>
+    <title>Waschmaschinen-Lager selbst reparieren | Spar bis zu 460€</title>
+    <meta name="description" content="Lager der Waschmaschine defekt? Repariere sie selbst für unter 40€ statt 300-500€ beim Kundendienst zu zahlen. Schritt-für-Schritt Anleitung.">
     <style>
-        :root { --primary: #0056b3; --accent: #ff9900; --bg: #f4f7f6; }
-        body { font-family: 'Segoe UI', Roboto, sans-serif; line-height: 1.6; margin: 0; background: var(--bg); color: #333; }
-        .hero { background: linear-gradient(rgba(0,0,0,0.6), rgba(0,0,0,0.6)), url('https://images.unsplash.com/photo-1584622650111-993a426fbf0a?q=80&w=1000&auto=format&fit=crop'); 
-                background-size: cover; color: white; padding: 60px 20px; text-align: center; }
-        .container { max-width: 800px; margin: -40px auto 40px; background: white; padding: 40px; border-radius: 12px; box-shadow: 0 4px 20px rgba(0,0,0,0.1); }
-        h1 { margin-top: 0; font-size: 2.2rem; }
-        .price-badge { background: #e8f4fd; border-left: 5px solid var(--primary); padding: 15px; margin: 20px 0; font-weight: bold; }
-        .btn { display: inline-block; background: var(--accent); color: white; padding: 18px 30px; text-decoration: none; border-radius: 8px; 
-               font-weight: bold; font-size: 1.2rem; transition: transform 0.2s, background 0.2s; box-shadow: 0 4px 6px rgba(0,0,0,0.1); }
-        .btn:hover { background: #e68a00; transform: translateY(-2px); }
-        footer { text-align: center; font-size: 0.9rem; color: #777; padding: 20px; }
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        
+        :root {
+            --primary: #1a73e8;
+            --primary-dark: #0d47a1;
+            --accent: #ff6b35;
+            --success: #10b981;
+            --bg-light: #f8fafc;
+            --text-dark: #1e293b;
+            --text-light: #64748b;
+            --shadow: 0 10px 40px rgba(0,0,0,0.1);
+        }
+        
+        body {
+            font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+            line-height: 1.7;
+            color: var(--text-dark);
+            background: var(--bg-light);
+        }
+        
+        /* Hero Section */
+        .hero {
+            background: linear-gradient(135deg, rgba(26, 115, 232, 0.95), rgba(13, 71, 161, 0.95)),
+                        url('https://images.unsplash.com/photo-1584622650111-993a426fbf0a?q=80&w=2000&auto=format&fit=crop');
+            background-size: cover;
+            background-position: center;
+            color: white;
+            padding: 100px 20px 120px;
+            text-align: center;
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .hero::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: radial-gradient(circle at 30% 50%, rgba(255, 255, 255, 0.1) 0%, transparent 60%);
+        }
+        
+        .hero-content {
+            max-width: 900px;
+            margin: 0 auto;
+            position: relative;
+            z-index: 1;
+        }
+        
+        .hero h1 {
+            font-size: clamp(2rem, 5vw, 3.5rem);
+            font-weight: 800;
+            margin-bottom: 20px;
+            line-height: 1.2;
+        }
+        
+        .hero-subtitle {
+            font-size: clamp(1.1rem, 2.5vw, 1.5rem);
+            margin-bottom: 15px;
+            opacity: 0.95;
+        }
+        
+        .savings-badge {
+            display: inline-block;
+            background: var(--accent);
+            padding: 12px 28px;
+            border-radius: 50px;
+            font-size: 1.2rem;
+            font-weight: 700;
+            margin-top: 10px;
+            box-shadow: 0 6px 20px rgba(255, 107, 53, 0.4);
+            animation: pulse 2s infinite;
+        }
+        
+        @keyframes pulse {
+            0%, 100% { transform: scale(1); }
+            50% { transform: scale(1.05); }
+        }
+        
+        /* Container */
+        .container {
+            max-width: 1100px;
+            margin: -60px auto 60px;
+            background: white;
+            border-radius: 20px;
+            box-shadow: var(--shadow);
+            overflow: hidden;
+            position: relative;
+            z-index: 2;
+        }
+        
+        .content-section {
+            padding: 50px 40px;
+        }
+        
+        /* Problem Section */
+        .problem-section {
+            background: linear-gradient(to bottom, #fff5f5, white);
+            border-bottom: 3px solid #fee;
+        }
+        
+        .section-title {
+            font-size: 2rem;
+            font-weight: 700;
+            margin-bottom: 20px;
+            color: var(--text-dark);
+        }
+        
+        .warning-box {
+            background: #fff3cd;
+            border-left: 5px solid #ffc107;
+            padding: 25px;
+            margin: 25px 0;
+            border-radius: 8px;
+        }
+        
+        .warning-box h3 {
+            color: #856404;
+            font-size: 1.3rem;
+            margin-bottom: 10px;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+        
+        .price-comparison {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 25px;
+            margin: 35px 0;
+        }
+        
+        .price-card {
+            background: white;
+            padding: 30px;
+            border-radius: 12px;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.08);
+            text-align: center;
+            border: 2px solid #e2e8f0;
+            transition: transform 0.3s, box-shadow 0.3s;
+        }
+        
+        .price-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 8px 25px rgba(0,0,0,0.12);
+        }
+        
+        .price-card.recommended {
+            border-color: var(--success);
+            position: relative;
+        }
+        
+        .price-card.recommended::before {
+            content: '✓ Empfohlen';
+            position: absolute;
+            top: -15px;
+            left: 50%;
+            transform: translateX(-50%);
+            background: var(--success);
+            color: white;
+            padding: 5px 20px;
+            border-radius: 20px;
+            font-size: 0.85rem;
+            font-weight: 600;
+        }
+        
+        .price-label {
+            font-size: 0.9rem;
+            color: var(--text-light);
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            margin-bottom: 10px;
+        }
+        
+        .price-amount {
+            font-size: 2.5rem;
+            font-weight: 800;
+            color: var(--text-dark);
+            margin-bottom: 10px;
+        }
+        
+        .price-card.expensive .price-amount {
+            color: #dc2626;
+        }
+        
+        .price-card.recommended .price-amount {
+            color: var(--success);
+        }
+        
+        /* Benefits Section */
+        .benefits-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 30px;
+            margin: 40px 0;
+        }
+        
+        .benefit-card {
+            background: var(--bg-light);
+            padding: 30px;
+            border-radius: 12px;
+            transition: transform 0.3s;
+        }
+        
+        .benefit-card:hover {
+            transform: translateY(-5px);
+        }
+        
+        .benefit-icon {
+            font-size: 3rem;
+            margin-bottom: 15px;
+        }
+        
+        .benefit-card h3 {
+            font-size: 1.3rem;
+            margin-bottom: 10px;
+            color: var(--primary);
+        }
+        
+        /* Steps Section */
+        .steps-section {
+            background: linear-gradient(to bottom, white, var(--bg-light));
+        }
+        
+        .steps-list {
+            margin: 30px 0;
+        }
+        
+        .step-item {
+            display: flex;
+            gap: 20px;
+            margin-bottom: 30px;
+            padding: 25px;
+            background: white;
+            border-radius: 12px;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.05);
+        }
+        
+        .step-number {
+            min-width: 50px;
+            height: 50px;
+            background: linear-gradient(135deg, var(--primary), var(--primary-dark));
+            color: white;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.5rem;
+            font-weight: 700;
+            flex-shrink: 0;
+        }
+        
+        .step-content h3 {
+            font-size: 1.2rem;
+            margin-bottom: 8px;
+            color: var(--text-dark);
+        }
+        
+        /* CTA Section */
+        .cta-section {
+            background: linear-gradient(135deg, var(--primary), var(--primary-dark));
+            color: white;
+            text-align: center;
+            padding: 60px 40px;
+        }
+        
+        .cta-section h2 {
+            font-size: 2.2rem;
+            margin-bottom: 15px;
+        }
+        
+        .cta-section p {
+            font-size: 1.2rem;
+            margin-bottom: 30px;
+            opacity: 0.9;
+        }
+        
+        .btn {
+            display: inline-block;
+            background: var(--accent);
+            color: white;
+            padding: 20px 45px;
+            text-decoration: none;
+            border-radius: 50px;
+            font-weight: 700;
+            font-size: 1.3rem;
+            transition: all 0.3s;
+            box-shadow: 0 8px 25px rgba(255, 107, 53, 0.4);
+            border: 3px solid transparent;
+        }
+        
+        .btn:hover {
+            background: #ff5722;
+            transform: translateY(-3px);
+            box-shadow: 0 12px 35px rgba(255, 107, 53, 0.5);
+        }
+        
+        .trust-indicators {
+            display: flex;
+            justify-content: center;
+            gap: 30px;
+            margin-top: 25px;
+            flex-wrap: wrap;
+        }
+        
+        .trust-item {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            font-size: 0.95rem;
+            opacity: 0.9;
+        }
+        
+        /* FAQ Section */
+        .faq-section {
+            padding: 50px 40px;
+        }
+        
+        .faq-item {
+            margin-bottom: 20px;
+            border: 1px solid #e2e8f0;
+            border-radius: 10px;
+            overflow: hidden;
+        }
+        
+        .faq-question {
+            background: var(--bg-light);
+            padding: 20px;
+            font-weight: 600;
+            cursor: pointer;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            transition: background 0.3s;
+        }
+        
+        .faq-question:hover {
+            background: #e8f0fe;
+        }
+        
+        .faq-answer {
+            padding: 20px;
+            display: none;
+            border-top: 1px solid #e2e8f0;
+        }
+        
+        .faq-item.active .faq-answer {
+            display: block;
+        }
+        
+        /* Footer */
+        footer {
+            background: var(--text-dark);
+            color: white;
+            text-align: center;
+            padding: 40px 20px;
+        }
+        
+        footer p {
+            opacity: 0.8;
+            margin: 5px 0;
+        }
+        
+        /* Responsive */
+        @media (max-width: 768px) {
+            .hero {
+                padding: 60px 20px 80px;
+            }
+            
+            .content-section {
+                padding: 35px 25px;
+            }
+            
+            .price-comparison {
+                grid-template-columns: 1fr;
+            }
+            
+            .step-item {
+                flex-direction: column;
+            }
+            
+            .trust-indicators {
+                flex-direction: column;
+                gap: 15px;
+            }
+        }
     </style>
 </head>
 <body>
+    <!-- Hero Section -->
     <div class="hero">
-        <h1>Waschmaschine Lager defekt?</h1>
-        <p>Rette deine Maschine für unter 40 Euro!</p>
-    </div>
-    <div class="container">
-        <h2>Kostenfalle Kundendienst</h2>
-        <p>Deine Waschmaschine macht beim Schleudern Lärm wie ein Düsenjet? Ein Profi verlangt oft <strong>300–500 Euro</strong> für den Lagerwechsel. Das ist fast ein Totalschaden.</p>
-        
-        <div class="price-badge">
-            💡 Die Wahrheit: Das Ersatzteil-Set kostet meist weniger als 40 Euro. Mit etwas Geduld sparst du hunderte Euro!
+        <div class="hero-content">
+            <h1>Waschmaschinen-Lager defekt?</h1>
+            <p class="hero-subtitle">Repariere deine Maschine selbst – ohne teure Handwerkerrechnung</p>
+            <div class="savings-badge">💰 Spare bis zu 460€</div>
         </div>
+    </div>
 
-        <h3>Die Lösung für Heimwerker</h3>
-        <p>Mit dem richtigen Reparatur-Set und meiner Anleitung kannst du den Wechsel selbst durchführen. Ich habe dir hier die passenden Teile für die gängigsten Modelle zusammengestellt:</p>
-        
-        <div style="text-align: center; margin-top: 30px;">
-            <a href="https://amzn.to/DEIN-LINK" class="btn">Passende Ersatzteile auf Amazon finden</a>
-        </div>
+    <!-- Main Container -->
+    <div class="container">
+        <!-- Problem Section -->
+        <section class="content-section problem-section">
+            <h2 class="section-title">🔊 Die Kostenfalle: Warum der Kundendienst so teuer ist</h2>
+            <p style="font-size: 1.1rem; margin-bottom: 20px;">
+                Deine Waschmaschine macht beim Schleudern Geräusche wie ein startender Düsenjet? 
+                Das klassische Zeichen eines defekten Lagers. Aber bevor du den Kundendienst rufst...
+            </p>
+            
+            <div class="warning-box">
+                <h3>⚠️ Achtung: Preisschock vorprogrammiert!</h3>
+                <p>Ein professioneller Lagerwechsel kostet dich schnell <strong>300–500 Euro</strong>. 
+                Bei älteren Maschinen entspricht das oft einem wirtschaftlichen Totalschaden.</p>
+            </div>
+
+            <div class="price-comparison">
+                <div class="price-card expensive">
+                    <div class="price-label">Kundendienst</div>
+                    <div class="price-amount">450€</div>
+                    <p>Anfahrt + Arbeitszeit + Ersatzteile</p>
+                </div>
+                
+                <div class="price-card recommended">
+                    <div class="price-label">Selbst Reparieren</div>
+                    <div class="price-amount">35€</div>
+                    <p>Nur Ersatzteile + deine Zeit</p>
+                </div>
+                
+                <div class="price-card" style="background: linear-gradient(to bottom, #ecfdf5, white); border-color: var(--success);">
+                    <div class="price-label">Deine Ersparnis</div>
+                    <div class="price-amount" style="color: var(--success);">415€</div>
+                    <p>💪 Die sich lohnt!</p>
+                </div>
+            </div>
+        </section>
+
+        <!-- Benefits Section -->
+        <section class="content-section">
+            <h2 class="section-title">✨ Warum selbst reparieren die beste Entscheidung ist</h2>
+            
+            <div class="benefits-grid">
+                <div class="benefit-card">
+                    <div class="benefit-icon">💶</div>
+                    <h3>Massive Kostenersparnis</h3>
+                    <p>Das Ersatzteil-Set kostet meist unter 40€. Der Rest der Handwerkerrechnung? Pure Arbeitszeit, die du selbst investieren kannst.</p>
+                </div>
+                
+                <div class="benefit-card">
+                    <div class="benefit-icon">🛠️</div>
+                    <h3>Einfacher als gedacht</h3>
+                    <p>Mit der richtigen Anleitung und etwas Geduld schaffst du das! Keine Raketenwissenschaft – nur Schrauben und Montieren.</p>
+                </div>
+                
+                <div class="benefit-card">
+                    <div class="benefit-icon">⚡</div>
+                    <h3>Schnelle Lieferung</h3>
+                    <p>Ersatzteile direkt über Amazon bestellen – oft schon am nächsten Tag bei dir. Kein wochenlanges Warten auf Handwerker-Termine.</p>
+                </div>
+                
+                <div class="benefit-card">
+                    <div class="benefit-icon">🎓</div>
+                    <h3>Wissen für die Zukunft</h3>
+                    <p>Einmal gemacht, nie wieder hilflos! Du verstehst deine Maschine und kannst künftig weitere Reparaturen selbst durchführen.</p>
+                </div>
+                
+                <div class="benefit-card">
+                    <div class="benefit-icon">🌱</div>
+                    <h3>Nachhaltig handeln</h3>
+                    <p>Reparieren statt wegwerfen! Du verlängerst die Lebensdauer deiner Maschine und schonst die Umwelt.</p>
+                </div>
+                
+                <div class="benefit-card">
+                    <div class="benefit-icon">💪</div>
+                    <h3>Stolz auf dich selbst</h3>
+                    <p>Das Gefühl, wenn die Maschine wieder läuft wie neu? Unbezahlbar! Du hast es selbst geschafft.</p>
+                </div>
+            </div>
+        </section>
+
+        <!-- Steps Section -->
+        <section class="content-section steps-section">
+            <h2 class="section-title">🔧 So einfach funktioniert's in 4 Schritten</h2>
+            
+            <div class="steps-list">
+                <div class="step-item">
+                    <div class="step-number">1</div>
+                    <div class="step-content">
+                        <h3>Richtiges Ersatzteil finden</h3>
+                        <p>Modellnummer deiner Waschmaschine notieren und das passende Lager-Set über den Button unten bestellen. Die Sets enthalten alle benötigten Teile inklusive Dichtungen.</p>
+                    </div>
+                </div>
+                
+                <div class="step-item">
+                    <div class="step-number">2</div>
+                    <div class="step-content">
+                        <h3>Maschine öffnen & Trommel ausbauen</h3>
+                        <p>Mit einfachem Werkzeug (Schraubendreher, Schraubenschlüssel) die Rückwand entfernen und die Trommel ausbauen. Schritt-für-Schritt-Anleitungen findest du auf YouTube für dein spezifisches Modell.</p>
+                    </div>
+                </div>
+                
+                <div class="step-item">
+                    <div class="step-number">3</div>
+                    <div class="step-content">
+                        <h3>Alte Lager entfernen & neue einsetzen</h3>
+                        <p>Das defekte Lager vorsichtig herausschlagen und das neue einsetzen. Achte auf saubere Arbeit und richtige Positionierung.</p>
+                    </div>
+                </div>
+                
+                <div class="step-item">
+                    <div class="step-number">4</div>
+                    <div class="step-content">
+                        <h3>Wieder zusammenbauen & testen</h3>
+                        <p>Alles in umgekehrter Reihenfolge montieren, einen Testlauf starten – fertig! Deine Maschine läuft wieder leise wie am ersten Tag.</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- CTA Section -->
+        <section class="cta-section">
+            <h2>Starte jetzt deine Reparatur!</h2>
+            <p>Finde das passende Ersatzteil-Set für deine Waschmaschine</p>
+            <a href="https://amzn.to/DEIN-LINK" class="btn">🛒 Zu den Ersatzteilen auf Amazon</a>
+            
+            <div class="trust-indicators">
+                <div class="trust-item">✓ Für alle gängigen Modelle</div>
+                <div class="trust-item">✓ Schneller Versand</div>
+                <div class="trust-item">✓ Top Kundenbewertungen</div>
+            </div>
+        </section>
+
+        <!-- FAQ Section -->
+        <section class="faq-section">
+            <h2 class="section-title">❓ Häufige Fragen</h2>
+            
+            <div class="faq-item">
+                <div class="faq-question">
+                    Brauche ich spezielle Werkzeuge?
+                    <span>▼</span>
+                </div>
+                <div class="faq-answer">
+                    <p>Nein! Standardwerkzeug reicht völlig aus: Schraubendreher, Schraubenschlüssel, eventuell ein Gummihammer. Alles, was die meisten Haushalte bereits haben.</p>
+                </div>
+            </div>
+            
+            <div class="faq-item">
+                <div class="faq-question">
+                    Wie lange dauert die Reparatur?
+                    <span>▼</span>
+                </div>
+                <div class="faq-answer">
+                    <p>Für Anfänger: 3-5 Stunden. Mit etwas Erfahrung: 2-3 Stunden. Nimm dir Zeit und arbeite sorgfältig – Eile ist nicht nötig.</p>
+                </div>
+            </div>
+            
+            <div class="faq-item">
+                <div class="faq-question">
+                    Was ist, wenn ich es nicht hinbekomme?
+                    <span>▼</span>
+                </div>
+                <div class="faq-answer">
+                    <p>Keine Sorge! Es gibt zahlreiche Video-Tutorials auf YouTube. Bei wirklichen Problemen kannst du immer noch den Kundendienst rufen – du hast also nichts zu verlieren.</p>
+                </div>
+            </div>
+            
+            <div class="faq-item">
+                <div class="faq-question">
+                    Für welche Marken funktioniert das?
+                    <span>▼</span>
+                </div>
+                <div class="faq-answer">
+                    <p>Die Reparatur funktioniert prinzipiell bei allen Marken: Bosch, Siemens, Miele, AEG, Beko, Samsung, LG und viele mehr. Wichtig ist nur, das passende Ersatzteil für dein spezifisches Modell zu bestellen.</p>
+                </div>
+            </div>
+        </section>
     </div>
+
+    <!-- Footer -->
     <footer>
-        &copy; 2026 Waschmaschinen-Sniper | Digital Assets by Sami Yahia
+        <p><strong>Waschmaschinen-Reparatur-Guide</strong></p>
+        <p>Digital Assets by Sami Yahia</p>
+        <p style="font-size: 0.85rem; margin-top: 15px;">© 2026 · Alle Rechte vorbehalten</p>
     </footer>
+
+    <script>
+        // FAQ Toggle
+        document.querySelectorAll('.faq-question').forEach(question => {
+            question.addEventListener('click', () => {
+                const faqItem = question.parentElement;
+                const isActive = faqItem.classList.contains('active');
+                
+                // Close all FAQs
+                document.querySelectorAll('.faq-item').forEach(item => {
+                    item.classList.remove('active');
+                });
+                
+                // Open clicked FAQ if it wasn't active
+                if (!isActive) {
+                    faqItem.classList.add('active');
+                }
+            });
+        });
+
+        // Smooth scroll for anchor links
+        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+            anchor.addEventListener('click', function (e) {
+                e.preventDefault();
+                const target = document.querySelector(this.getAttribute('href'));
+                if (target) {
+                    target.scrollIntoView({ behavior: 'smooth' });
+                }
+            });
+        });
+    </script>
 </body>
 </html>
